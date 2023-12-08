@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Tools\RedisHash;
+namespace Gabrielmoura\LaravelCep;
 
 use Closure;
 

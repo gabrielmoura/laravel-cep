@@ -6,7 +6,7 @@ use Gabrielmoura\LaravelCep\Dto\CepDto;
 
 class PostMon extends BaseCep implements RequestCep
 {
-    public function find(string $cep, $cached = true): CepDto
+    public function find(string $cep, bool $cached = true): CepDto
     {
         if ($cached) {
             return new CepDto(
@@ -19,13 +19,17 @@ class PostMon extends BaseCep implements RequestCep
         return new CepDto($this->getCep($cep));
     }
 
-    private function getCep(string $cep)
+    /**
+     * @param  string  $cep CEP
+     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     */
+    private function getCep(string $cep): array
     {
         $this->validate($cep);
 
         $req = $this->http->get("https://api.postmon.com.br/v1/cep/$cep");
 
-        $req->onError(fn($e) => $this->error($e));
+        $req->onError(fn ($e) => $this->error($e));
 
         return $req->json();
     }

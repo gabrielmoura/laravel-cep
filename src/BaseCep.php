@@ -2,7 +2,6 @@
 
 namespace Gabrielmoura\LaravelCep;
 
-use App\Actions\Tools\RedisHash\RedisWrapper;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
@@ -12,13 +11,21 @@ class BaseCep
 {
     protected PendingRequest $http;
 
-    protected ?RedisWrapper $redis;
+    protected RedisWrapper $redis;
 
+    /**
+     * @description Trata o erro
+     *
+     * @throws CepException
+     */
     protected function error(RequestException $e): void
     {
         throw new CepException($e->response->json() ?? $e->getMessage(), $e->response->status());
     }
 
+    /**
+     * @description Valida o CEP
+     */
     protected function validate(string $cep): void
     {
         if (! preg_match('/^[0-9]{8}$/', $cep)) {
@@ -26,6 +33,9 @@ class BaseCep
         }
     }
 
+    /**
+     * BaseCep constructor.
+     */
     public function __construct()
     {
         $this->http = Http::acceptJson()

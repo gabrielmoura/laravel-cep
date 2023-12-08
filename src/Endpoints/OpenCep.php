@@ -6,13 +6,16 @@ use Gabrielmoura\LaravelCep\Dto\CepDto;
 
 class OpenCep extends BaseCep implements RequestCep
 {
+    /**
+     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     */
     private function getCep(string $cep): array
     {
         $this->validate($cep);
 
         $req = $this->http->get("https://opencep.com/v1/$cep.json");
 
-        $req->onError(fn($e) => $this->error($e));
+        $req->onError(fn ($e) => $this->error($e));
 
         return $req->json();
     }

@@ -19,13 +19,17 @@ class BrasilApi extends BaseCep implements RequestCep
         return new CepDto($this->getCep($cep));
     }
 
-    private function getCep(string $cep)
+    /**
+     * @param  string  $cep CEP
+     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     */
+    private function getCep(string $cep): array
     {
         $this->validate($cep);
 
         $req = $this->http->get("https://brasilapi.com.br/api/cep/v1/$cep");
 
-        $req->onError(fn($e) => $this->error($e));
+        $req->onError(fn ($e) => $this->error($e));
 
         return $req->json();
     }

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\ServiceHttp\CepService;
+namespace Gabrielmoura\LaravelCep;
 
-use Gabrielmoura\LaravelCep\RequestCep;
-use Gabrielmoura\LaravelCep\ViaCep;
+use App\ServiceHttp\CepService\CepService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 

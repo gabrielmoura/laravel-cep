@@ -19,13 +19,17 @@ class ViaCep extends BaseCep implements RequestCep
         return new CepDto($this->getCep($cep));
     }
 
+    /**
+     * @param  string  $cep  CEP
+     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     */
     private function getCep(string $cep): array
     {
         $this->validate($cep);
 
         $req = $this->http->get("https://viacep.com.br/ws/$cep/json/");
 
-        $req->onError(fn($e) => $this->error($e));
+        $req->onError(fn ($e) => $this->error($e));
 
         return $req->json();
     }
