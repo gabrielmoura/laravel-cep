@@ -1,8 +1,10 @@
 <?php
 
-namespace Gabrielmoura\LaravelCep;
+namespace Gabrielmoura\LaravelCep\Endpoints;
 
+use Gabrielmoura\LaravelCep\BaseCep;
 use Gabrielmoura\LaravelCep\Dto\CepDto;
+use Gabrielmoura\LaravelCep\RequestCep;
 
 class PostMon extends BaseCep implements RequestCep
 {

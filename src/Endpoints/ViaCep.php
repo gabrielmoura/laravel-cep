@@ -1,8 +1,10 @@
 <?php
 
-namespace Gabrielmoura\LaravelCep;
+namespace Gabrielmoura\LaravelCep\Endpoints;
 
+use Gabrielmoura\LaravelCep\BaseCep;
 use Gabrielmoura\LaravelCep\Dto\CepDto;
+use Gabrielmoura\LaravelCep\RequestCep;
 
 class ViaCep extends BaseCep implements RequestCep
 {
@@ -20,7 +22,7 @@ class ViaCep extends BaseCep implements RequestCep
     }
 
     /**
-     * @param  string  $cep  CEP
+     * @param  string  $cep CEP
      * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
      */
     private function getCep(string $cep): array
