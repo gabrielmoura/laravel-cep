@@ -45,6 +45,16 @@ class BaseCep
     }
 
     /**
+     * @description Verifica se o Redis está instalado
+     *
+     * @return bool true se estiver instalado
+     */
+    public function hasRedis(): bool
+    {
+        return class_exists(\Illuminate\Support\Facades\Redis::class);
+    }
+
+    /**
      * BaseCep constructor.
      */
     public function __construct()
@@ -52,7 +62,7 @@ class BaseCep
         $this->http = Http::acceptJson()
             ->contentType('application/json');
 
-        if (class_exists(\Illuminate\Support\Facades\Redis::class)) {
+        if ($this->hasRedis()) {
             $this->redis = new RedisWrapper(\Illuminate\Support\Facades\Redis::Connection());
         }
     }

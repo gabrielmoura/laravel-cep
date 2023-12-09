@@ -10,7 +10,7 @@ class ViaCep extends BaseCep implements RequestCep
 {
     public function find(string $cep, bool $cached = true): CepDto
     {
-        if ($cached) {
+        if ($cached && $this->hasRedis()) {
             return new CepDto(
                 $this->redis->rememberArray("cep:$cep", function () use ($cep) {
                     return $this->getCep($cep);
