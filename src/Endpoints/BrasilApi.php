@@ -13,17 +13,23 @@ class BrasilApi extends BaseCep implements RequestCep
         if ($cached) {
             return new CepDto(
                 $this->redis->rememberArray("cep:$cep", function () use ($cep) {
-                    return $this->getCep($cep);
+                    return $this->transform(
+                        $this->getCep($cep)
+                    );
                 }, 60 * 60 * 24)
             );
         }
 
-        return new CepDto($this->getCep($cep));
+        return new CepDto(
+            $this->transform(
+                $this->getCep($cep)
+            )
+        );
     }
 
     /**
      * @param  string  $cep CEP
-     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     * @return array {cep:string, state:string, city:string, neighborhood:string, street:string, service:string}
      */
     private function getCep(string $cep): array
     {
@@ -34,5 +40,21 @@ class BrasilApi extends BaseCep implements RequestCep
         $req->onError(fn ($e) => $this->error($e));
 
         return $req->json();
+    }
+
+    private function transform(array $data): array
+    {
+        return [
+            'cep' => $data['cep'],
+            'logradouro' => $data['street'],
+            'complemento' => null,
+            'bairro' => $data['neighborhood'],
+            'localidade' => $data['city'],
+            'uf' => $data['state'],
+            'ibge' => null,
+            'gia' => null,
+            'ddd' => null,
+            'siafi' => null,
+        ];
     }
 }

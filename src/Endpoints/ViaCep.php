@@ -23,7 +23,7 @@ class ViaCep extends BaseCep implements RequestCep
 
     /**
      * @param  string  $cep CEP
-     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     * @return array {cep: string, logradouro: string, complemento: string, bairro: string, localidade: string, uf: string, ibge: string}
      */
     private function getCep(string $cep): array
     {

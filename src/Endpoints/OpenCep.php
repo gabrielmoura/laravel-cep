@@ -9,11 +9,13 @@ use Gabrielmoura\LaravelCep\RequestCep;
 class OpenCep extends BaseCep implements RequestCep
 {
     /**
-     * @return array {bairro: string, cidade: string, estado: string, logradouro: string, cep: string}
+     * @param  string  $cep CEP
+     * @return array {cep: string, logradouro: string, complemento: string, bairro: string, localidade: string, uf: string, ibge: string}
      */
     private function getCep(string $cep): array
     {
         $this->validate($cep);
+        $cep = $this->numberClear($cep);
 
         $req = $this->http->get("https://opencep.com/v1/$cep.json");
 
@@ -22,16 +24,39 @@ class OpenCep extends BaseCep implements RequestCep
         return $req->json();
     }
 
+    private function transform(array $data): array
+    {
+        return [
+            'cep' => $data['cep'],
+            'logradouro' => $data['logradouro'],
+            'complemento' => $data['complemento'],
+            'bairro' => $data['bairro'],
+            'localidade' => $data['cidade'],
+            'uf' => $data['estado'],
+            'ibge' => $data['ibge'],
+            'gia' => $data['gia'],
+            'ddd' => $data['ddd'],
+            'siafi' => null,
+        ];
+
+    }
+
     public function find(string $cep, bool $cached = true): CepDto
     {
         if ($cached) {
             return new CepDto(
                 $this->redis->rememberArray("cep:$cep", function () use ($cep) {
-                    return $this->getCep($cep);
+                    return $this->transform(
+                        $this->getCep($cep)
+                    );
                 }, 60 * 60 * 24)
             );
         }
 
-        return new CepDto($this->getCep($cep));
+        return new CepDto(
+            $this->transform(
+                $this->getCep($cep)
+            )
+        );
     }
 }

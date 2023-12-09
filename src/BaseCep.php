@@ -28,9 +28,21 @@ class BaseCep
      */
     protected function validate(string $cep): void
     {
-        if (! preg_match('/^[0-9]{8}$/', $cep)) {
+        if (! preg_match('/^\d{5}-?\d{3}$/', $cep)) {
             throw new CepException('CEP inválido', 400);
         }
+    }
+
+    /**
+     * @description Limpa o número
+     */
+    protected function numberClear(string $number): ?string
+    {
+        if ($number == null) {
+            return null;
+        }
+
+        return preg_replace('/[^0-9]/', '', $number);
     }
 
     /**
@@ -39,8 +51,7 @@ class BaseCep
     public function __construct()
     {
         $this->http = Http::acceptJson()
-            ->contentType('application/json')
-            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36');
+            ->contentType('application/json');
 
         $this->redis = new RedisWrapper(Redis::Connection());
     }
