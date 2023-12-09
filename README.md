@@ -2,6 +2,11 @@
 
 A simple Laravel package to get CEP information
 
+<p align="center">
+<a href="https://packagist.org/packages/gabrielmoura/laravel-cep"><img src="https://img.shields.io/packagist/v/gabrielmoura/laravel-cep" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/gabrielmoura/laravel-cep"><img src="https://img.shields.io/packagist/l/gabrielmoura/laravel-cep" alt="License"></a>
+</p>
+
 ## Providers
 
 - [ViaCEP](https://viacep.com.br/)
