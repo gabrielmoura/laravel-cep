@@ -37,3 +37,7 @@ app(CepService::class)->find(cep:'01001000',cached: true);
 use Gabrielmoura\LaravelCep\Cep;
 Cep::find('01001000',cached: true);
 ```
+
+## Compatibility
+
+- Laravel 10.x

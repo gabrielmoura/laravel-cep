@@ -57,7 +57,7 @@ readonly class RedisWrapper
     /**
      * @description Remove uma chave, ou todas as chaves com o prefixo
      */
-    public function flush(?string $key): void
+    public function flush(?string $key = null): void
     {
         if ($key === null) {
             $ds = $this->redis->command('KEYS', ["$this->prefix:*"]);

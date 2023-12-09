@@ -68,7 +68,7 @@ class BaseCep
         }
     }
 
-    public function flushCache(?string $cep): void
+    public function flushCache(?string $cep = null): void
     {
         if ($this->hasRedis()) {
             $this->redis->flush($cep);

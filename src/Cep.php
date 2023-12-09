@@ -9,7 +9,7 @@ class Cep extends Facade
 {
     /**
      * @method static CepDto find(string $cep, bool $cached = true)
-     * @method static void flushCache(?string $cep)
+     * @method static void flushCache(?string $cep = null)
      *
      * @return string
      */
