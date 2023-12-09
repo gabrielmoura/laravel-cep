@@ -10,7 +10,10 @@ class BaseCep
 {
     protected PendingRequest $http;
 
-    protected ?RedisWrapper $redis;
+    /**
+     * @var RedisWrapper
+     */
+    protected $redis;
 
     /**
      * @description Trata o erro
