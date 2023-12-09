@@ -16,4 +16,6 @@ enum EndpointOption
     const OPENCEP = OpenCep::class;
 
     const BRASILAPI = BrasilApi::class;
+
+    const DEFAULT = self::VIACEP;
 }

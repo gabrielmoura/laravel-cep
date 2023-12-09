@@ -1,9 +1,8 @@
 <?php
 
-namespace App\ServiceHttp\CepService;
+namespace Gabrielmoura\LaravelCep;
 
 use Gabrielmoura\LaravelCep\Dto\CepDto;
-use Gabrielmoura\LaravelCep\RequestCep;
 
 class CepService
 {
