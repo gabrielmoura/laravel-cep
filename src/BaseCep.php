@@ -5,13 +5,12 @@ namespace Gabrielmoura\LaravelCep;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Redis;
 
 class BaseCep
 {
     protected PendingRequest $http;
 
-    protected RedisWrapper $redis;
+    protected ?RedisWrapper $redis;
 
     /**
      * @description Trata o erro
@@ -53,6 +52,8 @@ class BaseCep
         $this->http = Http::acceptJson()
             ->contentType('application/json');
 
-        $this->redis = new RedisWrapper(Redis::Connection());
+        if (class_exists(\Illuminate\Support\Facades\Redis::class)) {
+            $this->redis = new RedisWrapper(\Illuminate\Support\Facades\Redis::Connection());
+        }
     }
 }

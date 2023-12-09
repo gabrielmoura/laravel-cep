@@ -10,7 +10,7 @@ A simple Laravel package to get CEP information
 - [Brasil API](https://brasilapi.com.br/)
 
 ## Configuration
-
+If not defined, ViaCep will be used.
 ```php
 // config/services.php
    'cep'=>[
@@ -24,12 +24,12 @@ A simple Laravel package to get CEP information
 
 ```php
 use Gabrielmoura\LaravelCep\CepService;
-app(CepService::class)->find('01001000');
+app(CepService::class)->find(cep:'01001000',cached: true);
 ```
 
 ### Facade
 
 ```php
 use Gabrielmoura\LaravelCep\Cep;
-Cep::find('01001000');
+Cep::find('01001000',cached: true);
 ```
