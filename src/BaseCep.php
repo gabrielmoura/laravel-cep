@@ -10,10 +10,7 @@ class BaseCep
 {
     protected PendingRequest $http;
 
-    /**
-     * @var RedisWrapper
-     */
-    protected $redis;
+    protected RedisWrapper $redis;
 
     /**
      * @description Trata o erro
@@ -66,6 +63,7 @@ class BaseCep
             ->contentType('application/json');
 
         if ($this->hasRedis()) {
+            // @phpstan-ignore-next-line
             $this->redis = new RedisWrapper(\Illuminate\Support\Facades\Redis::Connection());
         }
     }

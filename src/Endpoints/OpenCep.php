@@ -10,7 +10,7 @@ class OpenCep extends BaseCep implements RequestCep
 {
     /**
      * @param  string  $cep CEP
-     * @return array {cep: string, logradouro: string, complemento: string, bairro: string, localidade: string, uf: string, ibge: string}
+     * @return array {cep:string, logradouro:string, complemento:string, bairro:string, localidade:string, uf:string, ibge:string}
      */
     private function getCep(string $cep): array
     {
@@ -31,11 +31,11 @@ class OpenCep extends BaseCep implements RequestCep
             'logradouro' => $data['logradouro'],
             'complemento' => $data['complemento'],
             'bairro' => $data['bairro'],
-            'localidade' => $data['cidade'],
-            'uf' => $data['estado'],
+            'localidade' => $data['localidade'],
+            'uf' => $data['uf'],
             'ibge' => $data['ibge'],
-            'gia' => $data['gia'],
-            'ddd' => $data['ddd'],
+            'gia' => null,
+            'ddd' => null,
             'siafi' => null,
         ];
 

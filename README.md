@@ -10,13 +10,17 @@ A simple Laravel package to get CEP information
 - [Brasil API](https://brasilapi.com.br/)
 
 ## Configuration
+
 If not defined, ViaCep will be used.
+
 ```php
 // config/services.php
    'cep'=>[
         'endpoint' => \Gabrielmoura\LaravelCep\EndpointOption::VIACEP,
     ]
 ```
+
+Consider installing **`illuminate/redis`** for automatic caching.
 
 ## Usage
 
