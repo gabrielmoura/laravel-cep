@@ -67,4 +67,11 @@ class BaseCep
             $this->redis = new RedisWrapper(\Illuminate\Support\Facades\Redis::Connection());
         }
     }
+
+    public function flushCache(?string $cep): void
+    {
+        if ($this->hasRedis()) {
+            $this->redis->flush($cep);
+        }
+    }
 }

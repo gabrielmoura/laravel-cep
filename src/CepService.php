@@ -14,4 +14,9 @@ class CepService
     {
         return $this->pending->find($cep, $cached);
     }
+
+    public function flushCache(?string $cep): void
+    {
+        $this->pending->flushCache($cep);
+    }
 }

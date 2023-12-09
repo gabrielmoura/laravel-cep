@@ -6,7 +6,7 @@ use Closure;
 
 readonly class RedisWrapper
 {
-    public function __construct(private \Illuminate\Redis\Connections\Connection $redis)
+    public function __construct(private \Illuminate\Redis\Connections\Connection $redis, private string $prefix = 'cep')
     {
     }
 
@@ -52,5 +52,26 @@ readonly class RedisWrapper
     public function getArray(string $key): array
     {
         return $this->redis->command('HGETALL', [$key]);
+    }
+
+    /**
+     * @description Remove uma chave, ou todas as chaves com o prefixo
+     */
+    public function flush(?string $key): void
+    {
+        if ($key === null) {
+            $ds = $this->redis->command('KEYS', ["$this->prefix:*"]);
+            $ds = array_map(fn ($d) => explode($this->prefix, $d)[1], $ds);
+
+            $ds = array_map(fn ($d) => $this->prefix.$d, $ds);
+
+            foreach ($ds as $d) {
+                $this->redis->command('DEL', [$d]);
+            }
+        } else {
+
+            $this->redis->command('DEL', ["$this->prefix:$key"]);
+
+        }
     }
 }
